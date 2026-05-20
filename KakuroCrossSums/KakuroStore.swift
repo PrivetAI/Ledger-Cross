@@ -10,6 +10,18 @@ struct PuzzleProgress: Codable {
     var bestTime: Int? = nil             // seconds
     var elapsed: Int = 0                 // last in-progress elapsed seconds
     var hintsUsed: Int = 0
+
+    init() {}
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        filled      = (try? c.decodeIfPresent([String: Int].self,  forKey: .filled))      ?? [:]
+        notes       = (try? c.decodeIfPresent([String: [Int]].self, forKey: .notes))      ?? [:]
+        completed   = (try? c.decodeIfPresent(Bool.self,            forKey: .completed))  ?? false
+        bestTime    = (try? c.decodeIfPresent(Int.self,             forKey: .bestTime))   ?? nil
+        elapsed     = (try? c.decodeIfPresent(Int.self,             forKey: .elapsed))    ?? 0
+        hintsUsed   = (try? c.decodeIfPresent(Int.self,             forKey: .hintsUsed))  ?? 0
+    }
 }
 
 struct DailyRecord: Codable {
@@ -17,6 +29,16 @@ struct DailyRecord: Codable {
     var streak: Int = 0
     var bestStreak: Int = 0
     var completedKeys: [String] = []
+
+    init() {}
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        lastCompletedKey = (try? c.decodeIfPresent(String.self,   forKey: .lastCompletedKey)) ?? ""
+        streak           = (try? c.decodeIfPresent(Int.self,      forKey: .streak))           ?? 0
+        bestStreak       = (try? c.decodeIfPresent(Int.self,      forKey: .bestStreak))       ?? 0
+        completedKeys    = (try? c.decodeIfPresent([String].self, forKey: .completedKeys))    ?? []
+    }
 }
 
 struct KakuroSettings: Codable {
@@ -24,6 +46,16 @@ struct KakuroSettings: Codable {
     var hapticsOn: Bool = true
     var autoCheck: Bool = false
     var onboardingDone: Bool = false
+
+    init() {}
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        soundOn        = (try? c.decodeIfPresent(Bool.self, forKey: .soundOn))        ?? true
+        hapticsOn      = (try? c.decodeIfPresent(Bool.self, forKey: .hapticsOn))      ?? true
+        autoCheck      = (try? c.decodeIfPresent(Bool.self, forKey: .autoCheck))      ?? false
+        onboardingDone = (try? c.decodeIfPresent(Bool.self, forKey: .onboardingDone)) ?? false
+    }
 }
 
 // MARK: - Store

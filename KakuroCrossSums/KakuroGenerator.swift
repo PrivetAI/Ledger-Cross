@@ -238,8 +238,9 @@ final class KakuroGenerator {
             }
             return false
         }
+        let result = recurse(0)
         rng = rngCopy
-        return recurse(0) ? grid : nil
+        return result ? grid : nil
     }
 
     // Solve the isolated rectangle from its derived clues and confirm a single solution.

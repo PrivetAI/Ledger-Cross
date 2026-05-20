@@ -108,7 +108,7 @@ final class KakuroSolver {
                     var coords: [Int] = []
                     var cc = c + 1
                     while cc < size, cells[r][cc] == .entry {
-                        coords.append(coordToEntry[r * size + cc]!)
+                        if let e = coordToEntry[r * size + cc] { coords.append(e) }
                         cc += 1
                     }
                     if !coords.isEmpty {
@@ -121,7 +121,7 @@ final class KakuroSolver {
                     var coords: [Int] = []
                     var rr = r + 1
                     while rr < size, cells[rr][c] == .entry {
-                        coords.append(coordToEntry[rr * size + c]!)
+                        if let e = coordToEntry[rr * size + c] { coords.append(e) }
                         rr += 1
                     }
                     if !coords.isEmpty {
