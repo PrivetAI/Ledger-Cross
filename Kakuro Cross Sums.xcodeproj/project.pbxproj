@@ -1,0 +1,350 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B0000101 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000101 /* App.swift */; };
+		B0000102 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000102 /* DailyView.swift */; };
+		B0000103 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000103 /* GameView.swift */; };
+		B0000104 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000104 /* GameViewModel.swift */; };
+		B0000105 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000105 /* GridView.swift */; };
+		B0000106 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000106 /* HomeView.swift */; };
+		B0000107 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000107 /* HowToPlayView.swift */; };
+		B0000108 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000108 /* Icons.swift */; };
+		B0000109 /* KakuroCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000109 /* KakuroCatalog.swift */; };
+		B000010A /* KakuroGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010A /* KakuroGenerator.swift */; };
+		B000010B /* KakuroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010B /* KakuroModel.swift */; };
+		B000010C /* KakuroSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010C /* KakuroSolver.swift */; };
+		B000010D /* KakuroStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010D /* KakuroStore.swift */; };
+		B000010E /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010E /* LoadingScreen.swift */; };
+		B000010F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010F /* OnboardingView.swift */; };
+		B0000110 /* PuzzleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000110 /* PuzzleSelectView.swift */; };
+		B0000111 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000111 /* RootView.swift */; };
+		B0000112 /* SeededRNG.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000112 /* SeededRNG.swift */; };
+		B0000113 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000113 /* SettingsView.swift */; };
+		B0000114 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000114 /* Theme.swift */; };
+		B0000115 /* WebPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000115 /* WebPanel.swift */; };
+		B0000120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0000120 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A0000101 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		A0000102 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
+		A0000103 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		A0000104 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		A0000105 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
+		A0000106 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A0000107 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
+		A0000108 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
+		A0000109 /* KakuroCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroCatalog.swift; sourceTree = "<group>"; };
+		A000010A /* KakuroGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroGenerator.swift; sourceTree = "<group>"; };
+		A000010B /* KakuroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroModel.swift; sourceTree = "<group>"; };
+		A000010C /* KakuroSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroSolver.swift; sourceTree = "<group>"; };
+		A000010D /* KakuroStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroStore.swift; sourceTree = "<group>"; };
+		A000010E /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
+		A000010F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		A0000110 /* PuzzleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleSelectView.swift; sourceTree = "<group>"; };
+		A0000111 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		A0000112 /* SeededRNG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededRNG.swift; sourceTree = "<group>"; };
+		A0000113 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A0000114 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		A0000115 /* WebPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPanel.swift; sourceTree = "<group>"; };
+		A0000120 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A0000121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0000130 /* Kakuro Cross Sums.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kakuro Cross Sums.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C0000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D0000001 = {
+			isa = PBXGroup;
+			children = (
+				D0000002 /* KakuroCrossSums */,
+				D0000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D0000002 /* KakuroCrossSums */ = {
+			isa = PBXGroup;
+			children = (
+				A0000101 /* App.swift */,
+				A0000111 /* RootView.swift */,
+				A0000106 /* HomeView.swift */,
+				A0000110 /* PuzzleSelectView.swift */,
+				A0000102 /* DailyView.swift */,
+				A0000103 /* GameView.swift */,
+				A0000104 /* GameViewModel.swift */,
+				A0000105 /* GridView.swift */,
+				A0000113 /* SettingsView.swift */,
+				A000010F /* OnboardingView.swift */,
+				A0000107 /* HowToPlayView.swift */,
+				A000010E /* LoadingScreen.swift */,
+				A0000115 /* WebPanel.swift */,
+				A0000108 /* Icons.swift */,
+				A0000114 /* Theme.swift */,
+				A0000112 /* SeededRNG.swift */,
+				A000010B /* KakuroModel.swift */,
+				A000010C /* KakuroSolver.swift */,
+				A000010A /* KakuroGenerator.swift */,
+				A0000109 /* KakuroCatalog.swift */,
+				A000010D /* KakuroStore.swift */,
+				A0000120 /* Assets.xcassets */,
+				A0000121 /* Info.plist */,
+			);
+			path = KakuroCrossSums;
+			sourceTree = "<group>";
+		};
+		D0000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A0000130 /* Kakuro Cross Sums.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E0000001 /* Kakuro Cross Sums */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0000002 /* Build configuration list for PBXNativeTarget "Kakuro Cross Sums" */;
+			buildPhases = (
+				G0000001 /* Sources */,
+				C0000001 /* Frameworks */,
+				H0000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Kakuro Cross Sums";
+			productName = "Kakuro Cross Sums";
+			productReference = A0000130 /* Kakuro Cross Sums.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		I0000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					E0000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = F0000001 /* Build configuration list for PBXProject "Kakuro Cross Sums" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D0000001;
+			productRefGroup = D0000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E0000001 /* Kakuro Cross Sums */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		H0000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0000120 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		G0000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0000101 /* App.swift in Sources */,
+				B0000102 /* DailyView.swift in Sources */,
+				B0000103 /* GameView.swift in Sources */,
+				B0000104 /* GameViewModel.swift in Sources */,
+				B0000105 /* GridView.swift in Sources */,
+				B0000106 /* HomeView.swift in Sources */,
+				B0000107 /* HowToPlayView.swift in Sources */,
+				B0000108 /* Icons.swift in Sources */,
+				B0000109 /* KakuroCatalog.swift in Sources */,
+				B000010A /* KakuroGenerator.swift in Sources */,
+				B000010B /* KakuroModel.swift in Sources */,
+				B000010C /* KakuroSolver.swift in Sources */,
+				B000010D /* KakuroStore.swift in Sources */,
+				B000010E /* LoadingScreen.swift in Sources */,
+				B000010F /* OnboardingView.swift in Sources */,
+				B0000110 /* PuzzleSelectView.swift in Sources */,
+				B0000111 /* RootView.swift in Sources */,
+				B0000112 /* SeededRNG.swift in Sources */,
+				B0000113 /* SettingsView.swift in Sources */,
+				B0000114 /* Theme.swift in Sources */,
+				B0000115 /* WebPanel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		J0000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		J0000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		K0000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "";
+				DEVELOPMENT_TEAM = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = KakuroCrossSums/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Kakuro Cross Sums";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kakurocrosssums.kakurocrosssums;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		K0000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "";
+				DEVELOPMENT_TEAM = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = KakuroCrossSums/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Kakuro Cross Sums";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kakurocrosssums.kakurocrosssums;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F0000001 /* Build configuration list for PBXProject "Kakuro Cross Sums" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				J0000001 /* Debug */,
+				J0000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0000002 /* Build configuration list for PBXNativeTarget "Kakuro Cross Sums" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				K0000001 /* Debug */,
+				K0000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = I0000001 /* Project object */;
+}
