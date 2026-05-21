@@ -94,9 +94,22 @@ struct LedgerGridView: View {
         return LCTheme.ink
     }
 
+    // Highlight only the contiguous across-run and down-run that contain the
+    // selected cell — NOT the whole row/column (a Kakuro run stops at any
+    // block/clue cell).
     private func isInSelectedRun(_ r: Int, _ c: Int) -> Bool {
         guard let (sr, sc) = vm.selected else { return false }
-        return sr == r || sc == c
+        // Same horizontal run: same row, every cell between (inclusive) is an entry.
+        if r == sr {
+            let lo = min(c, sc), hi = max(c, sc)
+            if (lo...hi).allSatisfy({ vm.puzzle.isEntry(r, $0) }) { return true }
+        }
+        // Same vertical run: same column, every cell between (inclusive) is an entry.
+        if c == sc {
+            let lo = min(r, sr), hi = max(r, sr)
+            if (lo...hi).allSatisfy({ vm.puzzle.isEntry($0, c) }) { return true }
+        }
+        return false
     }
 
     @ViewBuilder
