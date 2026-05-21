@@ -6,26 +6,31 @@ struct LedgerGridView: View {
 
     var body: some View {
         let size = vm.puzzle.size
+        let scale = UIScreen.main.scale
         let dim = min(available.width, available.height)
-        let cell = floor(dim / CGFloat(size))
+        // Snap the cell to a whole number of device pixels so every cell is the
+        // exact same width and every grid line renders identically — avoids the
+        // occasional uneven/blurry lines caused by fractional cell sizes.
+        let cellPx = max(1, floor(dim * scale / CGFloat(size)))
+        let cell = cellPx / scale
         let boardSize = cell * CGFloat(size)
 
-        ZStack {
-            VStack(spacing: 0) {
-                ForEach(0..<size, id: \.self) { r in
-                    HStack(spacing: 0) {
-                        ForEach(0..<size, id: \.self) { c in
-                            cellView(r, c, side: cell)
-                        }
+        VStack(spacing: 0) {
+            ForEach(0..<size, id: \.self) { r in
+                HStack(spacing: 0) {
+                    ForEach(0..<size, id: \.self) { c in
+                        cellView(r, c, side: cell)
                     }
                 }
             }
-            .frame(width: boardSize, height: boardSize)
-            .background(LCTheme.ink)
-            .overlay(
-                Rectangle().stroke(LCTheme.ink, lineWidth: 2.5)
-            )
         }
+        .frame(width: boardSize, height: boardSize)
+        .background(LCTheme.paper)
+        // A single uniform grid drawn on top of all fills — no doubled per-cell
+        // strokes, so interior lines are even everywhere.
+        .overlay(gridLines(size: size, cell: cell))
+        .overlay(selectedBorder(size: size, cell: cell))
+        .overlay(Rectangle().stroke(LCTheme.ink, lineWidth: 2.5))
         .frame(width: boardSize, height: boardSize)
     }
 
@@ -37,18 +42,35 @@ struct LedgerGridView: View {
             Rectangle()
                 .fill(LCTheme.slate)
                 .frame(width: side, height: side)
-                .overlay(borderOverlay())
         case .clue(let down, let across):
             ClueCellView(down: down, across: across, side: side)
                 .frame(width: side, height: side)
-                .overlay(borderOverlay())
         case .entry:
             entryCell(r, c, side: side, value: model.solution)
         }
     }
 
-    private func borderOverlay() -> some View {
-        Rectangle().stroke(LCTheme.ink.opacity(0.85), lineWidth: 0.75)
+    private func gridLines(size: Int, cell: CGFloat) -> some View {
+        let total = cell * CGFloat(size)
+        return Path { p in
+            for i in 1..<max(size, 2) {
+                let x = cell * CGFloat(i)
+                p.move(to: CGPoint(x: x, y: 0)); p.addLine(to: CGPoint(x: x, y: total))
+                let y = cell * CGFloat(i)
+                p.move(to: CGPoint(x: 0, y: y)); p.addLine(to: CGPoint(x: total, y: y))
+            }
+        }
+        .stroke(LCTheme.ink.opacity(0.85), lineWidth: 0.75)
+    }
+
+    @ViewBuilder
+    private func selectedBorder(size: Int, cell: CGFloat) -> some View {
+        if let (sr, sc) = vm.selected, sr < size, sc < size {
+            Rectangle()
+                .stroke(LCTheme.teal, lineWidth: 2.2)
+                .frame(width: cell, height: cell)
+                .position(x: cell * (CGFloat(sc) + 0.5), y: cell * (CGFloat(sr) + 0.5))
+        }
     }
 
     @ViewBuilder
@@ -72,10 +94,6 @@ struct LedgerGridView: View {
             }
         }
         .frame(width: side, height: side)
-        .overlay(
-            Rectangle().stroke(isSelected ? LCTheme.teal : LCTheme.ink.opacity(0.85),
-                               lineWidth: isSelected ? 2.2 : 0.75)
-        )
         .contentShape(Rectangle())
         .onTapGesture { vm.select(r, c) }
     }
