@@ -4,13 +4,17 @@ struct LedgerGridView: View {
     @ObservedObject var vm: GameViewModel
     let available: CGSize
 
+    // Grid line thickness (points). The line is simply the ink board background
+    // showing through a uniform inset around every cell, so it is identical
+    // everywhere and never depends on a cell's state.
+    private let line: CGFloat = 1.0
+
     var body: some View {
         let size = vm.puzzle.size
         let scale = UIScreen.main.scale
         let dim = min(available.width, available.height)
-        // Snap the cell to a whole number of device pixels so every cell is the
-        // exact same width and every grid line renders identically — avoids the
-        // occasional uneven/blurry lines caused by fractional cell sizes.
+        // Snap each cell to a whole number of device pixels so every cell is the
+        // exact same size and the grid is perfectly even.
         let cellPx = max(1, floor(dim * scale / CGFloat(size)))
         let cell = cellPx / scale
         let boardSize = cell * CGFloat(size)
@@ -20,71 +24,51 @@ struct LedgerGridView: View {
                 HStack(spacing: 0) {
                     ForEach(0..<size, id: \.self) { c in
                         cellView(r, c, side: cell)
+                            .frame(width: cell, height: cell)   // fixed slot — never changes
+                            .contentShape(Rectangle())
+                            .onTapGesture { vm.select(r, c) }
                     }
                 }
             }
         }
         .frame(width: boardSize, height: boardSize)
-        .background(LCTheme.paper)
-        // A single uniform grid drawn on top of all fills — no doubled per-cell
-        // strokes, so interior lines are even everywhere.
-        .overlay(gridLines(size: size, cell: cell))
-        .overlay(selectedBorder(size: size, cell: cell))
-        .overlay(Rectangle().stroke(LCTheme.ink, lineWidth: 2.5))
+        .background(LCTheme.ink)                                   // shows through as the grid
+        .overlay(Rectangle().stroke(LCTheme.ink, lineWidth: 2.5))  // crisp outer frame
         .frame(width: boardSize, height: boardSize)
     }
 
+    // The visible part of a cell, inset by `line` so the ink background forms a
+    // uniform grid line around it. It is centered inside its fixed-size slot, so
+    // the slot — and therefore the whole grid — never moves or resizes.
     @ViewBuilder
     private func cellView(_ r: Int, _ c: Int, side: CGFloat) -> some View {
         let model = vm.puzzle.cells[r][c]
-        switch model.kind {
-        case .block:
-            Rectangle()
-                .fill(LCTheme.slate)
-                .frame(width: side, height: side)
-        case .clue(let down, let across):
-            ClueCellView(down: down, across: across, side: side)
-                .frame(width: side, height: side)
-        case .entry:
-            entryCell(r, c, side: side, value: model.solution)
-        }
-    }
-
-    private func gridLines(size: Int, cell: CGFloat) -> some View {
-        let total = cell * CGFloat(size)
-        return Path { p in
-            for i in 1..<max(size, 2) {
-                let x = cell * CGFloat(i)
-                p.move(to: CGPoint(x: x, y: 0)); p.addLine(to: CGPoint(x: x, y: total))
-                let y = cell * CGFloat(i)
-                p.move(to: CGPoint(x: 0, y: y)); p.addLine(to: CGPoint(x: total, y: y))
+        let inner = max(0, side - line)
+        Group {
+            switch model.kind {
+            case .block:
+                Rectangle().fill(LCTheme.slate)
+            case .clue(let down, let across):
+                ClueCellView(down: down, across: across, side: inner)
+            case .entry:
+                entryContent(r, c, side: inner)
             }
         }
-        .stroke(LCTheme.ink.opacity(0.85), lineWidth: 0.75)
+        .frame(width: inner, height: inner)
     }
 
     @ViewBuilder
-    private func selectedBorder(size: Int, cell: CGFloat) -> some View {
-        if let (sr, sc) = vm.selected, sr < size, sc < size {
-            Rectangle()
-                .stroke(LCTheme.teal, lineWidth: 2.2)
-                .frame(width: cell, height: cell)
-                .position(x: cell * (CGFloat(sc) + 0.5), y: cell * (CGFloat(sr) + 0.5))
-        }
-    }
-
-    @ViewBuilder
-    private func entryCell(_ r: Int, _ c: Int, side: CGFloat, value: Int) -> some View {
+    private func entryContent(_ r: Int, _ c: Int, side: CGFloat) -> some View {
         let key = "\(r)_\(c)"
         let isSelected = vm.selected.map { $0 == (r, c) } ?? false
-        let inSelectedRun = isInSelectedRun(r, c)
+        let inRun = isInSelectedRun(r, c)
         let isConflict = vm.conflicts.contains(key)
         let isWrong = vm.checkedWrong.contains(key)
         let digit = vm.filled[r][c]
 
         ZStack {
             Rectangle()
-                .fill(cellFill(isSelected: isSelected, inRun: inSelectedRun, conflict: isConflict, wrong: isWrong))
+                .fill(cellFill(isSelected: isSelected, inRun: inRun, conflict: isConflict, wrong: isWrong))
             if digit != 0 {
                 Text("\(digit)")
                     .font(.system(size: side * 0.55, weight: .semibold, design: .rounded))
@@ -94,8 +78,15 @@ struct LedgerGridView: View {
             }
         }
         .frame(width: side, height: side)
-        .contentShape(Rectangle())
-        .onTapGesture { vm.select(r, c) }
+        .overlay(
+            // Selection ring drawn INSIDE the cell via strokeBorder — it can never
+            // extend past the cell bounds, so selecting never changes any size.
+            Group {
+                if isSelected {
+                    Rectangle().strokeBorder(LCTheme.teal, lineWidth: 2)
+                }
+            }
+        )
     }
 
     private func cellFill(isSelected: Bool, inRun: Bool, conflict: Bool, wrong: Bool) -> Color {
@@ -117,12 +108,10 @@ struct LedgerGridView: View {
     // block/clue cell).
     private func isInSelectedRun(_ r: Int, _ c: Int) -> Bool {
         guard let (sr, sc) = vm.selected else { return false }
-        // Same horizontal run: same row, every cell between (inclusive) is an entry.
         if r == sr {
             let lo = min(c, sc), hi = max(c, sc)
             if (lo...hi).allSatisfy({ vm.puzzle.isEntry(r, $0) }) { return true }
         }
-        // Same vertical run: same column, every cell between (inclusive) is an entry.
         if c == sc {
             let lo = min(r, sr), hi = max(r, sr)
             if (lo...hi).allSatisfy({ vm.puzzle.isEntry($0, c) }) { return true }
