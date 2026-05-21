@@ -3,7 +3,7 @@ import SwiftUI
 // All icons are custom SwiftUI Shapes / paths. No SF Symbols, no emoji, no system images.
 
 struct PencilIcon: View {
-    var color: Color = KCSTheme.ink
+    var color: Color = LCTheme.ink
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -38,7 +38,7 @@ struct PencilIcon: View {
 }
 
 struct EraserIcon: View {
-    var color: Color = KCSTheme.ink
+    var color: Color = LCTheme.ink
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -61,7 +61,7 @@ struct EraserIcon: View {
 }
 
 struct LightbulbIcon: View {
-    var color: Color = KCSTheme.amber
+    var color: Color = LCTheme.amber
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -91,7 +91,7 @@ struct LightbulbIcon: View {
 }
 
 struct CheckIcon: View {
-    var color: Color = KCSTheme.teal
+    var color: Color = LCTheme.teal
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -106,7 +106,7 @@ struct CheckIcon: View {
 }
 
 struct GearIcon: View {
-    var color: Color = KCSTheme.ink
+    var color: Color = LCTheme.ink
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -136,7 +136,7 @@ struct GearIcon: View {
 }
 
 struct LockIcon: View {
-    var color: Color = KCSTheme.slateLight
+    var color: Color = LCTheme.slateLight
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -155,7 +155,7 @@ struct LockIcon: View {
 }
 
 struct ChevronIcon: View {
-    var color: Color = KCSTheme.inkSoft
+    var color: Color = LCTheme.inkSoft
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -170,7 +170,7 @@ struct ChevronIcon: View {
 }
 
 struct StarIcon: View {
-    var color: Color = KCSTheme.amber
+    var color: Color = LCTheme.amber
     var filled: Bool = true
     var body: some View {
         GeometryReader { geo in
@@ -199,7 +199,7 @@ struct StarIcon: View {
 }
 
 struct ClockIcon: View {
-    var color: Color = KCSTheme.inkSoft
+    var color: Color = LCTheme.inkSoft
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -224,7 +224,7 @@ struct ClockIcon: View {
 }
 
 struct UndoIcon: View {
-    var color: Color = KCSTheme.ink
+    var color: Color = LCTheme.ink
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -245,7 +245,7 @@ struct UndoIcon: View {
 }
 
 struct GridMarkIcon: View {
-    var color: Color = KCSTheme.teal
+    var color: Color = LCTheme.teal
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -271,7 +271,7 @@ struct GridMarkIcon: View {
 }
 
 struct CloseIcon: View {
-    var color: Color = KCSTheme.ink
+    var color: Color = LCTheme.ink
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -287,7 +287,7 @@ struct CloseIcon: View {
 }
 
 struct FlameIcon: View {
-    var color: Color = KCSTheme.amber
+    var color: Color = LCTheme.amber
     var body: some View {
         GeometryReader { geo in
             let s = min(geo.size.width, geo.size.height)
@@ -321,7 +321,7 @@ struct FlameIcon: View {
                            control2: CGPoint(x: s * 0.40, y: s * 0.76))
                 p.closeSubpath()
             }
-            .fill(KCSTheme.parchment.opacity(0.7))
+            .fill(LCTheme.parchment.opacity(0.7))
         }
     }
 }

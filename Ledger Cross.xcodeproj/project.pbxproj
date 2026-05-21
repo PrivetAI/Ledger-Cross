@@ -15,11 +15,11 @@
 		B0000106 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000106 /* HomeView.swift */; };
 		B0000107 /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000107 /* HowToPlayView.swift */; };
 		B0000108 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000108 /* Icons.swift */; };
-		B0000109 /* KakuroCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000109 /* KakuroCatalog.swift */; };
-		B000010A /* KakuroGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010A /* KakuroGenerator.swift */; };
-		B000010B /* KakuroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010B /* KakuroModel.swift */; };
-		B000010C /* KakuroSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010C /* KakuroSolver.swift */; };
-		B000010D /* KakuroStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010D /* KakuroStore.swift */; };
+		B0000109 /* LedgerCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000109 /* LedgerCatalog.swift */; };
+		B000010A /* LedgerGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010A /* LedgerGenerator.swift */; };
+		B000010B /* LedgerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010B /* LedgerModel.swift */; };
+		B000010C /* LedgerSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010C /* LedgerSolver.swift */; };
+		B000010D /* LedgerStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010D /* LedgerStore.swift */; };
 		B000010E /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010E /* LoadingScreen.swift */; };
 		B000010F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000010F /* OnboardingView.swift */; };
 		B0000110 /* PuzzleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000110 /* PuzzleSelectView.swift */; };
@@ -40,11 +40,11 @@
 		A0000106 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A0000107 /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		A0000108 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
-		A0000109 /* KakuroCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroCatalog.swift; sourceTree = "<group>"; };
-		A000010A /* KakuroGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroGenerator.swift; sourceTree = "<group>"; };
-		A000010B /* KakuroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroModel.swift; sourceTree = "<group>"; };
-		A000010C /* KakuroSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroSolver.swift; sourceTree = "<group>"; };
-		A000010D /* KakuroStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakuroStore.swift; sourceTree = "<group>"; };
+		A0000109 /* LedgerCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerCatalog.swift; sourceTree = "<group>"; };
+		A000010A /* LedgerGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerGenerator.swift; sourceTree = "<group>"; };
+		A000010B /* LedgerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerModel.swift; sourceTree = "<group>"; };
+		A000010C /* LedgerSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerSolver.swift; sourceTree = "<group>"; };
+		A000010D /* LedgerStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedgerStore.swift; sourceTree = "<group>"; };
 		A000010E /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
 		A000010F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		A0000110 /* PuzzleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleSelectView.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		A0000115 /* WebPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPanel.swift; sourceTree = "<group>"; };
 		A0000120 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0000121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A0000130 /* Kakuro Cross Sums.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kakuro Cross Sums.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0000130 /* Ledger Cross.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ledger Cross.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,12 +72,12 @@
 		D0000001 = {
 			isa = PBXGroup;
 			children = (
-				D0000002 /* KakuroCrossSums */,
+				D0000002 /* LedgerCross */,
 				D0000003 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		D0000002 /* KakuroCrossSums */ = {
+		D0000002 /* LedgerCross */ = {
 			isa = PBXGroup;
 			children = (
 				A0000101 /* App.swift */,
@@ -96,21 +96,21 @@
 				A0000108 /* Icons.swift */,
 				A0000114 /* Theme.swift */,
 				A0000112 /* SeededRNG.swift */,
-				A000010B /* KakuroModel.swift */,
-				A000010C /* KakuroSolver.swift */,
-				A000010A /* KakuroGenerator.swift */,
-				A0000109 /* KakuroCatalog.swift */,
-				A000010D /* KakuroStore.swift */,
+				A000010B /* LedgerModel.swift */,
+				A000010C /* LedgerSolver.swift */,
+				A000010A /* LedgerGenerator.swift */,
+				A0000109 /* LedgerCatalog.swift */,
+				A000010D /* LedgerStore.swift */,
 				A0000120 /* Assets.xcassets */,
 				A0000121 /* Info.plist */,
 			);
-			path = KakuroCrossSums;
+			path = LedgerCross;
 			sourceTree = "<group>";
 		};
 		D0000003 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A0000130 /* Kakuro Cross Sums.app */,
+				A0000130 /* Ledger Cross.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,9 +118,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E0000001 /* Kakuro Cross Sums */ = {
+		E0000001 /* Ledger Cross */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F0000002 /* Build configuration list for PBXNativeTarget "Kakuro Cross Sums" */;
+			buildConfigurationList = F0000002 /* Build configuration list for PBXNativeTarget "Ledger Cross" */;
 			buildPhases = (
 				G0000001 /* Sources */,
 				C0000001 /* Frameworks */,
@@ -130,9 +130,9 @@
 			);
 			dependencies = (
 			);
-			name = "Kakuro Cross Sums";
-			productName = "Kakuro Cross Sums";
-			productReference = A0000130 /* Kakuro Cross Sums.app */;
+			name = "Ledger Cross";
+			productName = "Ledger Cross";
+			productReference = A0000130 /* Ledger Cross.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -150,7 +150,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F0000001 /* Build configuration list for PBXProject "Kakuro Cross Sums" */;
+			buildConfigurationList = F0000001 /* Build configuration list for PBXProject "Ledger Cross" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -163,7 +163,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E0000001 /* Kakuro Cross Sums */,
+				E0000001 /* Ledger Cross */,
 			);
 		};
 /* End PBXProject section */
@@ -192,11 +192,11 @@
 				B0000106 /* HomeView.swift in Sources */,
 				B0000107 /* HowToPlayView.swift in Sources */,
 				B0000108 /* Icons.swift in Sources */,
-				B0000109 /* KakuroCatalog.swift in Sources */,
-				B000010A /* KakuroGenerator.swift in Sources */,
-				B000010B /* KakuroModel.swift in Sources */,
-				B000010C /* KakuroSolver.swift in Sources */,
-				B000010D /* KakuroStore.swift in Sources */,
+				B0000109 /* LedgerCatalog.swift in Sources */,
+				B000010A /* LedgerGenerator.swift in Sources */,
+				B000010B /* LedgerModel.swift in Sources */,
+				B000010C /* LedgerSolver.swift in Sources */,
+				B000010D /* LedgerStore.swift in Sources */,
 				B000010E /* LoadingScreen.swift in Sources */,
 				B000010F /* OnboardingView.swift in Sources */,
 				B0000110 /* PuzzleSelectView.swift in Sources */,
@@ -271,14 +271,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = KakuroCrossSums/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kakuro Cross Sums";
+				INFOPLIST_FILE = LedgerCross/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Ledger Cross";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kakurocrosssums.kakurocrosssums;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ledgercross.ledgercross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -303,14 +303,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = KakuroCrossSums/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kakuro Cross Sums";
+				INFOPLIST_FILE = LedgerCross/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Ledger Cross";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kakurocrosssums.kakurocrosssums;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ledgercross.ledgercross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -326,7 +326,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F0000001 /* Build configuration list for PBXProject "Kakuro Cross Sums" */ = {
+		F0000001 /* Build configuration list for PBXProject "Ledger Cross" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				J0000001 /* Debug */,
@@ -335,7 +335,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F0000002 /* Build configuration list for PBXNativeTarget "Kakuro Cross Sums" */ = {
+		F0000002 /* Build configuration list for PBXNativeTarget "Ledger Cross" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				K0000001 /* Debug */,

@@ -12,7 +12,7 @@ import Foundation
 //   isolated by black cells, room solutions are independent, so the whole grid
 //   is uniquely solvable iff each room is — which holds by construction. The
 //   solver still confirms uniqueness as a hard guarantee before a puzzle ships.
-final class KakuroGenerator {
+final class LedgerGenerator {
 
     // MARK: - Room shapes (relative coordinates; all uniquely solvable in isolation)
 
@@ -62,23 +62,23 @@ final class KakuroGenerator {
 
     // MARK: - Public
 
-    static func makePuzzle(id: String, difficulty: KakuroDifficulty, seed: UInt64) -> KakuroPuzzle {
+    static func makePuzzle(id: String, difficulty: LedgerDifficulty, seed: UInt64) -> LedgerPuzzle {
         let size = difficulty.gridSize
 
         var attempt = 0
         while attempt < 200 {
             attempt += 1
-            var rng = KakuroSplitMix64(seed: seed &+ UInt64(attempt) &* 0x100000001B3)
+            var rng = LedgerSplitMix64(seed: seed &+ UInt64(attempt) &* 0x100000001B3)
 
             guard let (isEntry, solution) = tile(size: size, rng: &rng) else { continue }
 
             let cells = deriveCells(size: size, isEntry: isEntry, solution: solution)
             let kindGrid = cells.map { row in row.map { $0.kind } }
 
-            let solver = KakuroSolver(size: size, cells: kindGrid)
+            let solver = LedgerSolver(size: size, cells: kindGrid)
             let count = solver.countSolutions(limit: 2, nodeCap: 600_000)
             if !solver.hitNodeCap && count == 1 {
-                return KakuroPuzzle(id: id, difficulty: difficulty, size: size, cells: cells)
+                return LedgerPuzzle(id: id, difficulty: difficulty, size: size, cells: cells)
             }
         }
         return fallbackPuzzle(id: id, difficulty: difficulty, seed: seed)
@@ -88,7 +88,7 @@ final class KakuroGenerator {
 
     // Lays unique rooms across the inner area (rows/cols 1...size-1) with black
     // separators, and returns both the entry mask and a valid solution grid.
-    private static func tile(size: Int, rng: inout KakuroSplitMix64) -> (isEntry: [[Bool]], solution: [[Int]])? {
+    private static func tile(size: Int, rng: inout LedgerSplitMix64) -> (isEntry: [[Bool]], solution: [[Int]])? {
         var isEntry = Array(repeating: Array(repeating: false, count: size), count: size)
         var solution = Array(repeating: Array(repeating: 0, count: size), count: size)
         var occupied = Array(repeating: Array(repeating: false, count: size), count: size)
@@ -199,7 +199,7 @@ final class KakuroGenerator {
     // uniquely solvable in isolation. We try several random fills, screening each
     // with the solver, so the room contributes a unique sub-puzzle.
     private static func fillRoom(_ shape: Shape, atR r: Int, atC c: Int,
-                                 solution: inout [[Int]], rng: inout KakuroSplitMix64) -> Bool {
+                                 solution: inout [[Int]], rng: inout LedgerSplitMix64) -> Bool {
         // Fast path for the most common room: 2x2 from the precomputed unique table.
         if shape.w == 2 && shape.h == 2 {
             let f = unique2x2[rng.nextInt(unique2x2.count)]
@@ -221,7 +221,7 @@ final class KakuroGenerator {
     }
 
     // Random valid fill of a w*h rectangle: each row and each column has no repeats.
-    private static func randomRectFill(w: Int, h: Int, rng: inout KakuroSplitMix64) -> [[Int]]? {
+    private static func randomRectFill(w: Int, h: Int, rng: inout LedgerSplitMix64) -> [[Int]]? {
         var grid = Array(repeating: Array(repeating: 0, count: w), count: h)
         var rngCopy = rng
         func recurse(_ idx: Int) -> Bool {
@@ -246,7 +246,7 @@ final class KakuroGenerator {
     // Solve the isolated rectangle from its derived clues and confirm a single solution.
     private static func rectFillIsUnique(_ grid: [[Int]], w: Int, h: Int) -> Bool {
         let n = max(w, h) + 1
-        var kind = Array(repeating: Array(repeating: KakuroCellKind.block, count: n + 1), count: n + 1)
+        var kind = Array(repeating: Array(repeating: LedgerCellKind.block, count: n + 1), count: n + 1)
         // Place the rectangle at (1,1).
         for dr in 0..<h { for dc in 0..<w { kind[1 + dr][1 + dc] = .entry } }
         // Derive clues into the surrounding black cells.
@@ -266,12 +266,12 @@ final class KakuroGenerator {
                 if across > 0 || down > 0 { kind[r][c] = .clue(down: down, across: across) }
             }
         }
-        let solver = KakuroSolver(size: n + 1, cells: kind)
+        let solver = LedgerSolver(size: n + 1, cells: kind)
         let cnt = solver.countSolutions(limit: 2, nodeCap: 200_000)
         return !solver.hitNodeCap && cnt == 1
     }
 
-    private static func isEntryKind(_ kind: [[KakuroCellKind]], _ r: Int, _ c: Int) -> Bool {
+    private static func isEntryKind(_ kind: [[LedgerCellKind]], _ r: Int, _ c: Int) -> Bool {
         if r < 0 || r >= kind.count || c < 0 || c >= kind[r].count { return false }
         if case .entry = kind[r][c] { return true }
         return false
@@ -320,11 +320,11 @@ final class KakuroGenerator {
 
     // MARK: - Derive clue cells
 
-    private static func deriveCells(size: Int, isEntry: [[Bool]], solution: [[Int]]) -> [[KakuroCell]] {
-        var cells = Array(repeating: Array(repeating: KakuroCell(kind: .block, solution: 0), count: size), count: size)
+    private static func deriveCells(size: Int, isEntry: [[Bool]], solution: [[Int]]) -> [[LedgerCell]] {
+        var cells = Array(repeating: Array(repeating: LedgerCell(kind: .block, solution: 0), count: size), count: size)
         for r in 0..<size {
             for c in 0..<size where isEntry[r][c] {
-                cells[r][c] = KakuroCell(kind: .entry, solution: solution[r][c])
+                cells[r][c] = LedgerCell(kind: .entry, solution: solution[r][c])
             }
         }
         for r in 0..<size {
@@ -340,7 +340,7 @@ final class KakuroGenerator {
                     while rr < size && isEntry[rr][c] { down += solution[rr][c]; rr += 1 }
                 }
                 if across > 0 || down > 0 {
-                    cells[r][c] = KakuroCell(kind: .clue(down: down, across: across), solution: 0)
+                    cells[r][c] = LedgerCell(kind: .clue(down: down, across: across), solution: 0)
                 }
             }
         }
@@ -349,11 +349,11 @@ final class KakuroGenerator {
 
     // MARK: - Fallback (guaranteed unique)
 
-    private static func fallbackPuzzle(id: String, difficulty: KakuroDifficulty, seed: UInt64) -> KakuroPuzzle {
+    private static func fallbackPuzzle(id: String, difficulty: LedgerDifficulty, seed: UInt64) -> LedgerPuzzle {
         let size = difficulty.gridSize
         var isEntry = Array(repeating: Array(repeating: false, count: size), count: size)
         var solution = Array(repeating: Array(repeating: 0, count: size), count: size)
-        var rng = KakuroSplitMix64(seed: seed ^ 0xDEAD_BEEF_CAFE_F00D)
+        var rng = LedgerSplitMix64(seed: seed ^ 0xDEAD_BEEF_CAFE_F00D)
 
         // Tile with separated 2x2 unique blocks — guaranteed unique by construction.
         var r = 1
@@ -370,6 +370,6 @@ final class KakuroGenerator {
             r += 3
         }
         let cells = deriveCells(size: size, isEntry: isEntry, solution: solution)
-        return KakuroPuzzle(id: id, difficulty: difficulty, size: size, cells: cells)
+        return LedgerPuzzle(id: id, difficulty: difficulty, size: size, cells: cells)
     }
 }

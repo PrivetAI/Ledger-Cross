@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - Difficulty
 
-enum KakuroDifficulty: Int, CaseIterable, Codable {
+enum LedgerDifficulty: Int, CaseIterable, Codable {
     case easy = 0
     case medium = 1
     case hard = 2
@@ -41,25 +41,25 @@ enum KakuroDifficulty: Int, CaseIterable, Codable {
 
 // MARK: - Cell
 
-enum KakuroCellKind: Equatable {
+enum LedgerCellKind: Equatable {
     case block                       // pure black cell, no clues
     case clue(down: Int, across: Int) // black clue cell; 0 means no clue in that direction
     case entry                       // white fillable cell
 }
 
-struct KakuroCell: Equatable {
-    var kind: KakuroCellKind
+struct LedgerCell: Equatable {
+    var kind: LedgerCellKind
     var solution: Int   // 0 for non-entry cells; 1...9 for entry cells
 }
 
 // MARK: - Puzzle
 
 // A fully solved & verified Kakuro puzzle.
-struct KakuroPuzzle: Equatable {
+struct LedgerPuzzle: Equatable {
     let id: String          // stable id, e.g. "easy-3" or "daily-20260520"
-    let difficulty: KakuroDifficulty
+    let difficulty: LedgerDifficulty
     let size: Int           // total grid dimension (size x size)
-    var cells: [[KakuroCell]]
+    var cells: [[LedgerCell]]
 
     func isEntry(_ r: Int, _ c: Int) -> Bool {
         if case .entry = cells[r][c].kind { return true }

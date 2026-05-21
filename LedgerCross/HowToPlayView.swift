@@ -10,7 +10,7 @@ struct HowToPlayView: View {
             }
             .padding(16)
         }
-        .background(KCSTheme.parchment.edgesIgnoringSafeArea(.all))
+        .background(LCTheme.parchment.edgesIgnoringSafeArea(.all))
         .navigationBarTitle("How to Play", displayMode: .inline)
     }
 
@@ -26,20 +26,20 @@ struct HowToPlayView: View {
                     text: "When every run is complete with the correct totals and no duplicates, the puzzle is solved.")
         }
         .padding(16)
-        .background(KCSTheme.card)
+        .background(LCTheme.card)
         .clipShape(RoundedRectangle(cornerRadius: 18))
-        .overlay(RoundedRectangle(cornerRadius: 18).stroke(KCSTheme.line, lineWidth: 1))
+        .overlay(RoundedRectangle(cornerRadius: 18).stroke(LCTheme.line, lineWidth: 1))
     }
 
     private func ruleRow(number: String, title: String, text: String) -> some View {
         HStack(alignment: .top, spacing: 12) {
             ZStack {
-                Circle().fill(KCSTheme.tealSoft).frame(width: 30, height: 30)
-                Text(number).font(.system(size: 15, weight: .bold)).foregroundColor(KCSTheme.teal)
+                Circle().fill(LCTheme.tealSoft).frame(width: 30, height: 30)
+                Text(number).font(.system(size: 15, weight: .bold)).foregroundColor(LCTheme.teal)
             }
             VStack(alignment: .leading, spacing: 3) {
-                Text(title).font(.system(size: 15, weight: .bold)).foregroundColor(KCSTheme.ink)
-                Text(text).font(.system(size: 13, weight: .regular)).foregroundColor(KCSTheme.inkSoft).lineSpacing(2)
+                Text(title).font(.system(size: 15, weight: .bold)).foregroundColor(LCTheme.ink)
+                Text(text).font(.system(size: 13, weight: .regular)).foregroundColor(LCTheme.inkSoft).lineSpacing(2)
             }
         }
     }
@@ -48,36 +48,36 @@ struct HowToPlayView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Digit Combination Cheat Sheet")
                 .font(.system(size: 17, weight: .bold))
-                .foregroundColor(KCSTheme.ink)
+                .foregroundColor(LCTheme.ink)
             Text("Some sums can only be made one way for a given run length. These \"locked\" combinations are the key to cracking a Kakuro.")
                 .font(.system(size: 13, weight: .regular))
-                .foregroundColor(KCSTheme.inkSoft)
+                .foregroundColor(LCTheme.inkSoft)
                 .lineSpacing(2)
 
             ForEach(cheatGroups, id: \.length) { group in
                 VStack(alignment: .leading, spacing: 8) {
                     Text("\(group.length) cells")
                         .font(.system(size: 14, weight: .bold))
-                        .foregroundColor(KCSTheme.teal)
+                        .foregroundColor(LCTheme.teal)
                     ForEach(group.entries, id: \.sum) { entry in
                         HStack(spacing: 10) {
                             Text("\(entry.sum)")
                                 .font(.system(size: 15, weight: .bold, design: .rounded))
-                                .foregroundColor(KCSTheme.ink)
+                                .foregroundColor(LCTheme.ink)
                                 .frame(width: 34, alignment: .leading)
-                            Rectangle().fill(KCSTheme.line).frame(width: 1, height: 18)
+                            Rectangle().fill(LCTheme.line).frame(width: 1, height: 18)
                             Text(entry.combo)
                                 .font(.system(size: 14, weight: .medium, design: .rounded))
-                                .foregroundColor(KCSTheme.slate)
+                                .foregroundColor(LCTheme.slate)
                             Spacer()
                         }
                     }
                 }
                 .padding(12)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(KCSTheme.card)
+                .background(LCTheme.card)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
-                .overlay(RoundedRectangle(cornerRadius: 14).stroke(KCSTheme.line, lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 14).stroke(LCTheme.line, lineWidth: 1))
             }
         }
     }

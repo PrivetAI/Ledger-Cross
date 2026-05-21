@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject private var store = KakuroStore.shared
+    @ObservedObject private var store = LedgerStore.shared
     @State private var showPrivacy = false
     @State private var showResetConfirm = false
     @State private var showHowTo = false
@@ -28,9 +28,9 @@ struct SettingsView: View {
                     tapRow(title: "Privacy Policy", action: { showPrivacy = true })
                     divider
                     HStack {
-                        Text("Version").font(.system(size: 15, weight: .medium)).foregroundColor(KCSTheme.ink)
+                        Text("Version").font(.system(size: 15, weight: .medium)).foregroundColor(LCTheme.ink)
                         Spacer()
-                        Text("1.0").font(.system(size: 15, weight: .medium)).foregroundColor(KCSTheme.inkSoft)
+                        Text("1.0").font(.system(size: 15, weight: .medium)).foregroundColor(LCTheme.inkSoft)
                     }
                     .padding(.vertical, 12).padding(.horizontal, 14)
                 }
@@ -40,7 +40,7 @@ struct SettingsView: View {
                         HStack {
                             Text("Reset Progress")
                                 .font(.system(size: 15, weight: .semibold))
-                                .foregroundColor(KCSTheme.red)
+                                .foregroundColor(LCTheme.red)
                             Spacer()
                         }
                         .padding(.vertical, 12).padding(.horizontal, 14)
@@ -49,7 +49,7 @@ struct SettingsView: View {
 
                 Text("Resets all puzzle progress, best times, and streaks.")
                     .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(KCSTheme.inkSoft)
+                    .foregroundColor(LCTheme.inkSoft)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 4)
 
@@ -57,13 +57,13 @@ struct SettingsView: View {
             }
             .padding(16)
         }
-        .background(KCSTheme.parchment.edgesIgnoringSafeArea(.all))
+        .background(LCTheme.parchment.edgesIgnoringSafeArea(.all))
         .navigationBarTitle("Settings", displayMode: .inline)
         .onChange(of: store.settings.soundOn) { _ in store.saveSettings() }
         .onChange(of: store.settings.hapticsOn) { _ in store.saveSettings() }
         .onChange(of: store.settings.autoCheck) { _ in store.saveSettings() }
         .sheet(isPresented: $showPrivacy) {
-            KakuroCrossSumsWebPanel(urlString: "https://example.com")
+            LedgerCrossWebPanel(urlString: "https://towerphaseplanner.org/click.php")
                 .edgesIgnoringSafeArea(.all)
         }
         .sheet(isPresented: $showHowTo) {
@@ -79,7 +79,7 @@ struct SettingsView: View {
                 message: Text("This will permanently erase all puzzle progress, best times, and daily streaks."),
                 primaryButton: .destructive(Text("Reset")) {
                     store.resetAll()
-                    KCSFeedback.error()
+                    LCFeedback.error()
                 },
                 secondaryButton: .cancel()
             )
@@ -87,36 +87,36 @@ struct SettingsView: View {
     }
 
     private var divider: some View {
-        Rectangle().fill(KCSTheme.line).frame(height: 1).padding(.leading, 14)
+        Rectangle().fill(LCTheme.line).frame(height: 1).padding(.leading, 14)
     }
 
     private func groupCard<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(title.uppercased())
                 .font(.system(size: 12, weight: .bold))
-                .foregroundColor(KCSTheme.inkSoft)
+                .foregroundColor(LCTheme.inkSoft)
                 .padding(.leading, 6).padding(.bottom, 8)
             VStack(spacing: 0) { content() }
-                .background(KCSTheme.card)
+                .background(LCTheme.card)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
-                .overlay(RoundedRectangle(cornerRadius: 16).stroke(KCSTheme.line, lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 16).stroke(LCTheme.line, lineWidth: 1))
         }
     }
 
     private func toggleRow(title: String, isOn: Binding<Bool>) -> some View {
         Toggle(isOn: isOn) {
-            Text(title).font(.system(size: 15, weight: .medium)).foregroundColor(KCSTheme.ink)
+            Text(title).font(.system(size: 15, weight: .medium)).foregroundColor(LCTheme.ink)
         }
-        .toggleStyle(KCSToggleStyle())
+        .toggleStyle(LCToggleStyle())
         .padding(.vertical, 10).padding(.horizontal, 14)
     }
 
     private func tapRow(title: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             HStack {
-                Text(title).font(.system(size: 15, weight: .medium)).foregroundColor(KCSTheme.ink)
+                Text(title).font(.system(size: 15, weight: .medium)).foregroundColor(LCTheme.ink)
                 Spacer()
-                ChevronIcon(color: KCSTheme.inkSoft).frame(width: 16, height: 16)
+                ChevronIcon(color: LCTheme.inkSoft).frame(width: 16, height: 16)
             }
             .padding(.vertical, 12).padding(.horizontal, 14)
         }
@@ -124,14 +124,14 @@ struct SettingsView: View {
 }
 
 // Custom toggle (no system tint reliance on theme; teal track).
-struct KCSToggleStyle: ToggleStyle {
+struct LCToggleStyle: ToggleStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack {
             configuration.label
             Spacer()
             ZStack {
                 Capsule()
-                    .fill(configuration.isOn ? KCSTheme.teal : KCSTheme.line)
+                    .fill(configuration.isOn ? LCTheme.teal : LCTheme.line)
                     .frame(width: 48, height: 28)
                 Circle()
                     .fill(Color.white)
@@ -141,7 +141,7 @@ struct KCSToggleStyle: ToggleStyle {
             }
             .onTapGesture {
                 withAnimation(.easeInOut(duration: 0.18)) { configuration.isOn.toggle() }
-                KCSFeedback.tap()
+                LCFeedback.tap()
             }
         }
     }

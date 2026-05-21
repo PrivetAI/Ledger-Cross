@@ -41,7 +41,7 @@ struct DailyRecord: Codable {
     }
 }
 
-struct KakuroSettings: Codable {
+struct LedgerSettings: Codable {
     var soundOn: Bool = true
     var hapticsOn: Bool = true
     var autoCheck: Bool = false
@@ -60,10 +60,10 @@ struct KakuroSettings: Codable {
 
 // MARK: - Store
 
-final class KakuroStore: ObservableObject {
-    static let shared = KakuroStore()
+final class LedgerStore: ObservableObject {
+    static let shared = LedgerStore()
 
-    @Published var settings: KakuroSettings
+    @Published var settings: LedgerSettings
     @Published var daily: DailyRecord
     @Published private(set) var progressMap: [String: PuzzleProgress]
 
@@ -77,10 +77,10 @@ final class KakuroStore: ObservableObject {
 
     private init() {
         if let data = d.data(forKey: Keys.settings),
-           let s = try? JSONDecoder().decode(KakuroSettings.self, from: data) {
+           let s = try? JSONDecoder().decode(LedgerSettings.self, from: data) {
             settings = s
         } else {
-            settings = KakuroSettings()
+            settings = LedgerSettings()
         }
         if let data = d.data(forKey: Keys.daily),
            let r = try? JSONDecoder().decode(DailyRecord.self, from: data) {
@@ -121,7 +121,7 @@ final class KakuroStore: ObservableObject {
         }
     }
 
-    func completedCount(for difficulty: KakuroDifficulty) -> Int {
+    func completedCount(for difficulty: LedgerDifficulty) -> Int {
         var n = 0
         let key = difficultyKey(difficulty)
         for i in 0..<difficulty.puzzlesPerPack {
@@ -138,7 +138,7 @@ final class KakuroStore: ObservableObject {
         progressMap[id]?.bestTime
     }
 
-    private func difficultyKey(_ d: KakuroDifficulty) -> String {
+    private func difficultyKey(_ d: LedgerDifficulty) -> String {
         switch d {
         case .easy: return "easy"
         case .medium: return "medium"

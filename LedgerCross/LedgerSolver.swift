@@ -3,7 +3,7 @@ import Foundation
 // MARK: - Digit combination tables
 
 // Standard Kakuro combination helpers operating on 9-bit masks (bit d-1 set => digit d available).
-enum KakuroCombos {
+enum LedgerCombos {
     static let full: Int = 0b1_1111_1111 // digits 1...9
 
     static func mask(for digit: Int) -> Int { 1 << (digit - 1) }
@@ -61,9 +61,9 @@ enum KakuroCombos {
 // MARK: - Solver
 
 // Counts solutions, stopping early at `limit`. Used both to solve and to test uniqueness.
-final class KakuroSolver {
+final class LedgerSolver {
     private let size: Int
-    private var cells: [[KakuroCellKind]]
+    private var cells: [[LedgerCellKind]]
 
     // Run metadata.
     private struct Run {
@@ -80,7 +80,7 @@ final class KakuroSolver {
     private var values: [Int] = []   // current digit per entry (0 = empty)
     private var rowMaskUsed: [Int] = [] // per-run used-digit mask
 
-    init(size: Int, cells: [[KakuroCellKind]]) {
+    init(size: Int, cells: [[LedgerCellKind]]) {
         self.size = size
         self.cells = cells
         buildMetadata()
@@ -137,21 +137,21 @@ final class KakuroSolver {
 
     // For a cell, candidate digits given current run constraints.
     private func candidates(for entry: Int) -> Int {
-        var allowed = KakuroCombos.full
+        var allowed = LedgerCombos.full
         let ar = acrossRunOfCell[entry]
         let dr = downRunOfCell[entry]
         if ar >= 0 {
             let run = runs[ar]
             let remainingSum = run.sum - currentSum(of: run)
             let remainingLen = run.cellIndices.filter { values[$0] == 0 }.count
-            allowed &= KakuroCombos.allowedDigits(length: remainingLen, sum: remainingSum)
+            allowed &= LedgerCombos.allowedDigits(length: remainingLen, sum: remainingSum)
             allowed &= ~rowMaskUsed[ar]
         }
         if dr >= 0 {
             let run = runs[dr]
             let remainingSum = run.sum - currentSum(of: run)
             let remainingLen = run.cellIndices.filter { values[$0] == 0 }.count
-            allowed &= KakuroCombos.allowedDigits(length: remainingLen, sum: remainingSum)
+            allowed &= LedgerCombos.allowedDigits(length: remainingLen, sum: remainingSum)
             allowed &= ~rowMaskUsed[dr]
         }
         return allowed
@@ -169,7 +169,7 @@ final class KakuroSolver {
         var bestCount = 10
         for e in 0..<values.count where values[e] == 0 {
             let cand = candidates(for: e)
-            let cnt = KakuroCombos.count(cand)
+            let cnt = LedgerCombos.count(cand)
             if cnt == 0 { return e } // dead end forces backtrack quickly
             if cnt < bestCount {
                 bestCount = cnt
@@ -233,16 +233,16 @@ final class KakuroSolver {
         let dr = downRunOfCell[cell]
         var d = 1
         while d <= 9 {
-            if KakuroCombos.contains(cand, d) {
+            if LedgerCombos.contains(cand, d) {
                 values[cell] = d
-                if ar >= 0 { rowMaskUsed[ar] |= KakuroCombos.mask(for: d) }
-                if dr >= 0 { rowMaskUsed[dr] |= KakuroCombos.mask(for: d) }
+                if ar >= 0 { rowMaskUsed[ar] |= LedgerCombos.mask(for: d) }
+                if dr >= 0 { rowMaskUsed[dr] |= LedgerCombos.mask(for: d) }
 
                 backtrack()
 
                 values[cell] = 0
-                if ar >= 0 { rowMaskUsed[ar] &= ~KakuroCombos.mask(for: d) }
-                if dr >= 0 { rowMaskUsed[dr] &= ~KakuroCombos.mask(for: d) }
+                if ar >= 0 { rowMaskUsed[ar] &= ~LedgerCombos.mask(for: d) }
+                if dr >= 0 { rowMaskUsed[dr] &= ~LedgerCombos.mask(for: d) }
                 if solutionCount >= limit { return }
             }
             d += 1

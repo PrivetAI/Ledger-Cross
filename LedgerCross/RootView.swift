@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RootView: View {
-    @ObservedObject private var store = KakuroStore.shared
+    @ObservedObject private var store = LedgerStore.shared
     @State private var showOnboarding = false
 
     var body: some View {
@@ -27,7 +27,7 @@ struct RootView: View {
             }
             // Warm up the first pack in the background for snappier navigation.
             DispatchQueue.global(qos: .utility).async {
-                KakuroCatalog.shared.warmPack(.easy)
+                LedgerCatalog.shared.warmPack(.easy)
             }
         }
     }

@@ -2,7 +2,7 @@ import Foundation
 
 // Deterministic seeded RNG using SplitMix64 integer mixing.
 // Never uses String.hashValue or Hasher().
-struct KakuroSplitMix64: RandomNumberGenerator {
+struct LedgerSplitMix64: RandomNumberGenerator {
     private var state: UInt64
 
     init(seed: UInt64) {

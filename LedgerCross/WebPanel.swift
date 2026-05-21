@@ -1,7 +1,7 @@
 import SwiftUI
 import WebKit
 
-struct KakuroCrossSumsWebPanel: UIViewRepresentable {
+struct LedgerCrossWebPanel: UIViewRepresentable {
     let urlString: String
 
     func makeUIView(context: Context) -> WKWebView {

@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 
 final class GameViewModel: ObservableObject {
-    let puzzle: KakuroPuzzle
+    let puzzle: LedgerPuzzle
     let isDaily: Bool
     let dayKey: String?
 
@@ -22,11 +22,11 @@ final class GameViewModel: ObservableObject {
     private var undoStack: [[[Int]]] = []
     private var undoNotes: [[[Set<Int>]]] = []
     private var timer: Timer?
-    private let store = KakuroStore.shared
+    private let store = LedgerStore.shared
 
     var hintsRemaining: Int { max(0, maxHints - hintsUsed) }
 
-    init(puzzle: KakuroPuzzle, isDaily: Bool = false, dayKey: String? = nil) {
+    init(puzzle: LedgerPuzzle, isDaily: Bool = false, dayKey: String? = nil) {
         self.puzzle = puzzle
         self.isDaily = isDaily
         self.dayKey = dayKey
@@ -98,7 +98,7 @@ final class GameViewModel: ObservableObject {
     func select(_ r: Int, _ c: Int) {
         guard puzzle.isEntry(r, c) else { return }
         selected = (r, c)
-        KCSFeedback.tap()
+        LCFeedback.tap()
     }
 
     func enterDigit(_ d: Int) {
@@ -116,7 +116,7 @@ final class GameViewModel: ObservableObject {
             }
             checkedWrong.remove("\(r)_\(c)")
         }
-        KCSFeedback.tap()
+        LCFeedback.tap()
         recomputeConflicts()
         if store.settings.autoCheck { recomputeCheckMistakes(silent: true) }
         checkSolved(animate: true)
@@ -129,14 +129,14 @@ final class GameViewModel: ObservableObject {
         filled[r][c] = 0
         notes[r][c].removeAll()
         checkedWrong.remove("\(r)_\(c)")
-        KCSFeedback.tap()
+        LCFeedback.tap()
         recomputeConflicts()
         saveProgress()
     }
 
     func toggleNotesMode() {
         notesMode.toggle()
-        KCSFeedback.tap()
+        LCFeedback.tap()
     }
 
     // MARK: - Undo
@@ -154,7 +154,7 @@ final class GameViewModel: ObservableObject {
         filled = f
         notes = n
         checkedWrong.removeAll()
-        KCSFeedback.tap()
+        LCFeedback.tap()
         recomputeConflicts()
         checkSolved(animate: false)
         saveProgress()
@@ -163,7 +163,7 @@ final class GameViewModel: ObservableObject {
     // MARK: - Hint (reveal one cell)
 
     func revealHint() {
-        guard hintsRemaining > 0, !solved else { KCSFeedback.error(); return }
+        guard hintsRemaining > 0, !solved else { LCFeedback.error(); return }
         // Prefer the selected empty/incorrect cell, else first wrong/empty cell.
         var target: (Int, Int)? = nil
         if let (r, c) = selected, puzzle.isEntry(r, c), filled[r][c] != puzzle.cells[r][c].solution {
@@ -185,7 +185,7 @@ final class GameViewModel: ObservableObject {
         checkedWrong.remove("\(r)_\(c)")
         hintsUsed += 1
         selected = (r, c)
-        KCSFeedback.soft()
+        LCFeedback.soft()
         recomputeConflicts()
         checkSolved(animate: true)
         saveProgress()
@@ -208,7 +208,7 @@ final class GameViewModel: ObservableObject {
         }
         checkedWrong = wrong
         if !silent {
-            if wrong.isEmpty { KCSFeedback.soft() } else { KCSFeedback.error() }
+            if wrong.isEmpty { LCFeedback.soft() } else { LCFeedback.error() }
         }
     }
 
@@ -275,7 +275,7 @@ final class GameViewModel: ObservableObject {
             p.filled = f
             store.setProgress(p, for: puzzle.id)
             if isDaily, let key = dayKey { store.registerDailyCompletion(dayKey: key) }
-            KCSFeedback.success()
+            LCFeedback.success()
             if animate {
                 showCelebration = true
             }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 // Clean paper / ledger theme — forced light appearance.
-enum KCSTheme {
+enum LCTheme {
     static let parchment = Color(red: 0.965, green: 0.945, blue: 0.898)   // cream background
     static let paper      = Color(red: 0.992, green: 0.984, blue: 0.965)  // entry cell white
     static let card       = Color(red: 0.984, green: 0.969, blue: 0.933)
@@ -22,9 +22,9 @@ enum KCSTheme {
 import UIKit
 import AudioToolbox
 
-enum KCSFeedback {
+enum LCFeedback {
     static func tap() {
-        let s = KakuroStore.shared.settings
+        let s = LedgerStore.shared.settings
         if s.hapticsOn {
             let gen = UIImpactFeedbackGenerator(style: .light)
             gen.impactOccurred()
@@ -32,7 +32,7 @@ enum KCSFeedback {
     }
 
     static func success() {
-        let s = KakuroStore.shared.settings
+        let s = LedgerStore.shared.settings
         if s.hapticsOn {
             let gen = UINotificationFeedbackGenerator()
             gen.notificationOccurred(.success)
@@ -43,7 +43,7 @@ enum KCSFeedback {
     }
 
     static func error() {
-        let s = KakuroStore.shared.settings
+        let s = LedgerStore.shared.settings
         if s.hapticsOn {
             let gen = UINotificationFeedbackGenerator()
             gen.notificationOccurred(.warning)
@@ -51,7 +51,7 @@ enum KCSFeedback {
     }
 
     static func soft() {
-        let s = KakuroStore.shared.settings
+        let s = LedgerStore.shared.settings
         if s.soundOn {
             AudioServicesPlaySystemSound(1104)
         }

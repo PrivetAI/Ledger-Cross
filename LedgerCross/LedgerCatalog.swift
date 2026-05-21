@@ -2,17 +2,17 @@ import Foundation
 
 // Lazily generates and caches the deterministic puzzle catalog.
 // 120 puzzles total: 30 per difficulty across 4 difficulties, plus date-seeded daily.
-final class KakuroCatalog {
-    static let shared = KakuroCatalog()
+final class LedgerCatalog {
+    static let shared = LedgerCatalog()
 
-    private var packCache: [String: KakuroPuzzle] = [:]   // key "diff-index"
-    private var dailyCache: [String: KakuroPuzzle] = [:]
+    private var packCache: [String: LedgerPuzzle] = [:]   // key "diff-index"
+    private var dailyCache: [String: LedgerPuzzle] = [:]
     private let queue = DispatchQueue(label: "kcs.catalog", attributes: .concurrent)
 
     private init() {}
 
     // Stable per-puzzle seed via SplitMix64-style integer mixing of difficulty + index.
-    private func seed(difficulty: KakuroDifficulty, index: Int) -> UInt64 {
+    private func seed(difficulty: LedgerDifficulty, index: Int) -> UInt64 {
         var z = UInt64(0xA5A5_5A5A_1234_5678)
         z = z &+ UInt64(difficulty.rawValue + 1) &* 0x9E37_79B9_7F4A_7C15
         z = z &+ UInt64(index + 1) &* 0xC2B2_AE3D_27D4_EB4F
@@ -21,25 +21,25 @@ final class KakuroCatalog {
         return z
     }
 
-    func puzzle(difficulty: KakuroDifficulty, index: Int) -> KakuroPuzzle {
+    func puzzle(difficulty: LedgerDifficulty, index: Int) -> LedgerPuzzle {
         let id = "\(difficultyKey(difficulty))-\(index)"
-        var existing: KakuroPuzzle?
+        var existing: LedgerPuzzle?
         queue.sync { existing = packCache[id] }
         if let p = existing { return p }
 
-        let p = KakuroGenerator.makePuzzle(id: id, difficulty: difficulty, seed: seed(difficulty: difficulty, index: index))
+        let p = LedgerGenerator.makePuzzle(id: id, difficulty: difficulty, seed: seed(difficulty: difficulty, index: index))
         queue.async(flags: .barrier) { self.packCache[id] = p }
         return p
     }
 
     // Generate the whole pack (used on background warm-up).
-    func warmPack(_ difficulty: KakuroDifficulty) {
+    func warmPack(_ difficulty: LedgerDifficulty) {
         for i in 0..<difficulty.puzzlesPerPack {
             _ = puzzle(difficulty: difficulty, index: i)
         }
     }
 
-    private func difficultyKey(_ d: KakuroDifficulty) -> String {
+    private func difficultyKey(_ d: LedgerDifficulty) -> String {
         switch d {
         case .easy: return "easy"
         case .medium: return "medium"
@@ -50,19 +50,19 @@ final class KakuroCatalog {
 
     // MARK: - Daily
 
-    func dailyDifficulty(for date: Date) -> KakuroDifficulty {
+    func dailyDifficulty(for date: Date) -> LedgerDifficulty {
         let key = Self.dayKey(date)
         // Deterministically pick difficulty from the day key digits.
         var z: UInt64 = 0
         for ch in key.unicodeScalars { z = z &+ UInt64(ch.value) &* 0x9E37_79B9_7F4A_7C15 }
         z = (z ^ (z >> 30)) &* 0xBF58_476D_1CE4_E5B9
         let pick = Int(z % 3) // Daily uses Easy/Medium/Hard for fair daily play
-        return KakuroDifficulty(rawValue: pick) ?? .easy
+        return LedgerDifficulty(rawValue: pick) ?? .easy
     }
 
-    func dailyPuzzle(for date: Date) -> KakuroPuzzle {
+    func dailyPuzzle(for date: Date) -> LedgerPuzzle {
         let key = Self.dayKey(date)
-        var cached: KakuroPuzzle?
+        var cached: LedgerPuzzle?
         queue.sync { cached = dailyCache[key] }
         if let c = cached { return c }
 
@@ -71,7 +71,7 @@ final class KakuroCatalog {
         for ch in key.unicodeScalars { z = z &+ UInt64(ch.value) &* 0xC2B2_AE3D_27D4_EB4F }
         z = (z ^ (z >> 27)) &* 0x94D0_49BB_1331_11EB
         z ^= (z >> 31)
-        let p = KakuroGenerator.makePuzzle(id: "daily-\(key)", difficulty: diff, seed: z)
+        let p = LedgerGenerator.makePuzzle(id: "daily-\(key)", difficulty: diff, seed: z)
         queue.async(flags: .barrier) { self.dailyCache[key] = p }
         return p
     }
