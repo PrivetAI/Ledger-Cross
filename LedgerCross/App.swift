@@ -12,7 +12,8 @@ struct LedgerCrossApp: App {
                 if let ready = ledgerCrossLinkReady {
                     if ready {
                         LedgerCrossWebPanel(urlString: ledgerCrossSourceLink)
-                            .edgesIgnoringSafeArea(.all)
+                            .edgesIgnoringSafeArea(.bottom)
+                            .background(Color.black.ignoresSafeArea())
                     } else {
                         RootView()
                     }
